@@ -1,6 +1,58 @@
 {
   "version": 1,
   "projects": {
+    "api": {
+      "root": "apps/api",
+      "sourceRoot": "apps/api/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/api",
+            "main": "apps/api/src/main.ts",
+            "tsConfig": "apps/api/tsconfig.app.json",
+            "assets": ["apps/api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/api/src/environments/environment.ts",
+                  "with": "apps/api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "api:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/api/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/api"],
+          "options": {
+            "jestConfig": "apps/api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "app-user": {
       "projectType": "application",
       "root": "apps/app-user",
@@ -67,7 +119,10 @@
               "browserTarget": "app-user:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "proxyConfig": "apps/app-user/proxy.conf.json"
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -123,6 +178,294 @@
       },
       "tags": [],
       "implicitDependencies": ["app-user"]
+    },
+    "shared-feature-settings": {
+      "projectType": "library",
+      "root": "libs/shared/feature/settings",
+      "sourceRoot": "libs/shared/feature/settings/src",
+      "prefix": "recipes-one-rep",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/feature/settings"],
+          "options": {
+            "jestConfig": "libs/shared/feature/settings/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/feature/settings/src/**/*.ts",
+              "libs/shared/feature/settings/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "shared-ui-header": {
+      "projectType": "library",
+      "root": "libs/shared/ui/header",
+      "sourceRoot": "libs/shared/ui/header/src",
+      "prefix": "recipes-one-rep",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/ui/header"],
+          "options": {
+            "jestConfig": "libs/shared/ui/header/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/ui/header/src/**/*.ts",
+              "libs/shared/ui/header/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "shared-ui-material": {
+      "projectType": "library",
+      "root": "libs/shared/ui/material",
+      "sourceRoot": "libs/shared/ui/material/src",
+      "prefix": "recipes-one-rep",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/ui/material"],
+          "options": {
+            "jestConfig": "libs/shared/ui/material/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/ui/material/src/**/*.ts",
+              "libs/shared/ui/material/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "shared-ui-side-menu": {
+      "projectType": "library",
+      "root": "libs/shared/ui/side-menu",
+      "sourceRoot": "libs/shared/ui/side-menu/src",
+      "prefix": "recipes-one-rep",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/ui/side-menu"],
+          "options": {
+            "jestConfig": "libs/shared/ui/side-menu/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/ui/side-menu/src/**/*.ts",
+              "libs/shared/ui/side-menu/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "user": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "skipTests": true,
+          "changeDetection": "OnPush"
+        },
+        "@schematics/angular:class": {
+          "skipTests": true,
+          "name": ""
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true,
+          "name": ""
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true,
+          "name": ""
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true,
+          "name": ""
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true,
+          "name": ""
+        },
+        "@schematics/angular:service": {
+          "skipTests": true,
+          "name": ""
+        }
+      },
+      "root": "apps/user",
+      "sourceRoot": "apps/user/src",
+      "prefix": "recipes-one-rep",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/user",
+            "index": "apps/user/src/index.html",
+            "main": "apps/user/src/main.ts",
+            "polyfills": "apps/user/src/polyfills.ts",
+            "tsConfig": "apps/user/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/user/src/favicon.ico",
+              "apps/user/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./libs/shared/assets",
+                "output": "./assets"
+              }
+            ],
+            "styles": ["apps/user/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/user/src/environments/environment.ts",
+                  "with": "apps/user/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "user:build:production"
+            },
+            "development": {
+              "browserTarget": "user:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "user:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/user/src/**/*.ts",
+              "apps/user/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/user"],
+          "options": {
+            "jestConfig": "apps/user/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "user-e2e": {
+      "root": "apps/user-e2e",
+      "sourceRoot": "apps/user-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/user-e2e/cypress.json",
+            "devServerTarget": "user:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "user:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/user-e2e/**/*.{js,ts}"]
+          }
+        }
+      },
+      "tags": [],
+      "implicitDependencies": ["user"]
+    },
+    "user-feature-shell": {
+      "projectType": "library",
+      "root": "libs/user/feature-shell",
+      "sourceRoot": "libs/user/feature-shell/src",
+      "prefix": "recipes-one-rep",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/user/feature-shell"],
+          "options": {
+            "jestConfig": "libs/user/feature-shell/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/user/feature-shell/src/**/*.ts",
+              "libs/user/feature-shell/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
     }
   }
 }

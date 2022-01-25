@@ -14,7 +14,24 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@recipes-one-rep/shared/assets": ["libs/shared/assets/src/index.ts"],
+      "@recipes-one-rep/shared/feature/settings": [
+        "libs/shared/feature/settings/src/index.ts"
+      ],
+      "@recipes-one-rep/shared/ui/header": [
+        "libs/shared/ui/header/src/index.ts"
+      ],
+      "@recipes-one-rep/shared/ui/material": [
+        "libs/shared/ui/material/src/index.ts"
+      ],
+      "@recipes-one-rep/shared/ui/side-menu": [
+        "libs/shared/ui/side-menu/src/index.ts"
+      ],
+      "@recipes-one-rep/user/feature-shell": [
+        "libs/user/feature-shell/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

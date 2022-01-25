@@ -1,0 +1,25 @@
+.sidenav {
+  width: 250px;
+
+  .sidenav__brand {
+    height: 64px;
+    padding: 16px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sidenav__logo-img {
+    height: 100%;
+    max-width: 40%;
+    object-fit: contain;
+  }
+
+  .sidenav__list {
+    margin-top: 32px;
+  }
+}
+
+.label {
+  width: 100%;
+}

@@ -75,6 +75,8 @@ Run `nx affected:test` to execute the unit tests affected by a change.
 
 ## Running end-to-end tests
 
+Run `run npx nx e2e todos-e2e --watch` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
+
 Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
 
 Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
@@ -82,6 +84,14 @@ Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
 ## Understand your workspace
 
 Run `nx dep-graph` to see a diagram of the dependencies of your projects.
+
+## Running NestJS
+
+Run `npx nx serve api` to serve the application.
+
+Run `npx nx build api` to build the application.
+
+Run `npx nx test api` to test the application.
 
 ## Further help
 
